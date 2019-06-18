@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 
 class NuevaCita extends Component {
     state = {
-        cita:{
-            mascota : '',
-            propietario : '',
-            fecha : '',
-            hora : '',
-            sintomas : ''
+        cita: {
+            mascota: '',
+            propietario: '',
+            fecha: '',
+            hora: '',
+            sintomas: ''
         },
-        error:false
+        error: false
     };
 
     handleChange = (e) => {
@@ -18,9 +19,9 @@ class NuevaCita extends Component {
         //escribiendo en el state la información diligenciada
 
         this.setState({
-            cita : {
+            cita: {
                 ...this.state.cita,
-                [e.target.name] : e.target.value
+                [e.target.name]: e.target.value
             }
         })
     }
@@ -29,9 +30,10 @@ class NuevaCita extends Component {
         e.preventDefault();
 
         //extraer los valores del state
-        const {mascota, propietario, fecha, hora, sintomas} = this.state.cita;
+        const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
 
-        if(mascota === '' || propietario === '' || fecha === '' || hora === '' || sintomas === ''){
+        //Validar los campos
+        if (mascota === '' || propietario === '' || fecha === '' || hora === '' || sintomas === '') {
             this.setState({
                 error: true
             })
@@ -43,10 +45,15 @@ class NuevaCita extends Component {
             })
         }
 
-        //Validar los campos
+        //Generar objeto con los datos
+        const nuevaCita = {
+            ...this.state.cita
+        }
 
+        nuevaCita.id = uuid();
+        
         //Agregar cita al State de App
-
+        this.props.crearNuevaCita(nuevaCita);
     }
 
     render() {

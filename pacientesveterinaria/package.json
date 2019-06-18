@@ -5,7 +5,8 @@
   "dependencies": {
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.8.5",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {},
   "scripts": {
