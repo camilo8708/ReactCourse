@@ -10,6 +10,21 @@ class App extends Component {
     citas: []
   }
 
+  //Cargar información del Storage cuando arranca la app
+  componentDidMount(){
+    const citasLS = localStorage.getItem('citas');
+    if(citasLS){
+      this.setState({
+        citas : JSON.parse(citasLS)
+      })
+    }
+  }
+
+  //Cuando se crea o elimina una cita se modifica el storage
+  componentDidUpdate(){
+    localStorage.setItem('citas', JSON.stringify(this.state.citas));
+  }
+
   crearNuevaCita = datos => {
     const citas = [...this.state.citas, datos]
 
@@ -46,8 +61,8 @@ class App extends Component {
 
           <div className="mt-5 col-md-10 mx-auto">
             <ListaCitas 
-              citas = {this.state.citas}
-              eliminarCita = {this.eliminarCita}
+              citas={this.state.citas}
+              eliminarCita={this.eliminarCita}
             />
           </div>
         </div>
